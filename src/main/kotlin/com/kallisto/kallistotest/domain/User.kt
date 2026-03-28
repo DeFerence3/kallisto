@@ -26,12 +26,14 @@ class User(
 
     fun canService(targetLat: Double, targetLong: Double): Boolean {
         if (isDeleted) return false
-        val distance = calculateDistance(latitude, longitude, targetLat, targetLong)
+        val distance = calculateDistance(targetLat, targetLong)
         return distance <= serviceRadius
     }
 
-    private fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-        val r = 6371 // Radius of the earth in km
+    private fun calculateDistance(lat2: Double, lon2: Double): Double {
+        val lat1: Double = latitude
+        val lon1: Double = longitude
+        val r = 6371 // avg radius of the earth in km
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon2 - lon1)
         val a = sin(dLat / 2) * sin(dLat / 2) +
