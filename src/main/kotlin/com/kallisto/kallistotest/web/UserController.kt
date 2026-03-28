@@ -2,6 +2,7 @@ package com.kallisto.kallistotest.web
 
 import com.kallisto.kallistotest.application.UserService
 import com.kallisto.kallistotest.domain.User
+import com.kallisto.kallistotest.web.dto.SearchResponseDto
 import com.kallisto.kallistotest.web.dto.UserRequestDto
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -24,7 +25,7 @@ class UserController(private val userService: UserService) {
     fun searchProviders(
         @RequestParam lat: Double,
         @RequestParam lon: Double
-    ): List<User> {
+    ): List<SearchResponseDto> {
         return userService.searchProviders(lat, lon)
     }
 

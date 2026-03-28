@@ -4,6 +4,8 @@ import com.kallisto.kallistotest.domain.User
 import com.kallisto.kallistotest.domain.UserRepository
 import com.kallisto.kallistotest.mapper.UserMapper
 import com.kallisto.kallistotest.mapper.UserMapper.toEntity
+import com.kallisto.kallistotest.mapper.UserMapper.toSearchDto
+import com.kallisto.kallistotest.web.dto.SearchResponseDto
 import com.kallisto.kallistotest.web.dto.UserRequestDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -46,8 +48,8 @@ class UserService(private val userRepository: UserRepository) {
         userRepository.save(user)
     }
 
-    fun searchProviders(lat: Double, lon: Double): List<User> {
+    fun searchProviders(lat: Double, lon: Double): List<SearchResponseDto> {
         return userRepository.findByIsDeletedFalse()
-            .filter { it.canService(lat, lon) }
+            .filter { it.canService(lat, lon) }.map { it.toSearchDto(it.calculateDistance(lat, lon)) }
     }
 }

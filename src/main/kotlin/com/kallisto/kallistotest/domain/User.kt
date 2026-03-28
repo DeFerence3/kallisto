@@ -30,7 +30,7 @@ class User(
         return distance <= serviceRadius
     }
 
-    private fun calculateDistance(lat2: Double, lon2: Double): Double {
+    fun calculateDistance(lat2: Double, lon2: Double): Double {
         val lat1: Double = latitude
         val lon1: Double = longitude
         val r = 6371 // avg radius of the earth in km
